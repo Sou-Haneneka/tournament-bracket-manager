@@ -13,7 +13,6 @@ import (
 
 func main() {
 	srv := server.CreateServer()
-
 	// listen and serve
 	err := srv.ListenAndServe()
 	if err == http.ErrServerClosed {

@@ -61,3 +61,19 @@ func (db DB) DeleteMatch(tournamentId string, round, table int) error {
 	}
 	return nil
 }
+func (db DB) InsertMatch(match Match) error {
+	err := db.DB.Create(&match).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (db DB) GetAllMatches() ([]Match, error) {
+	matches := make([]Match, 0)
+	err := db.DB.Find(&matches).Error
+	if err != nil {
+		return nil, err
+	}
+	return matches, nil
+}
