@@ -69,11 +69,11 @@ func (db DB) InsertMatch(match Match) error {
 	return nil
 }
 
-func (db DB) GetAllMatches() ([]Match, error) {
+/*func (db DB) GetAllMatches() ([]Match, error) {
 	matches := make([]Match, 0)
 	err := db.DB.Find(&matches).Error
 	if err != nil {
 		return nil, err
 	}
 	return matches, nil
-}
+}*/

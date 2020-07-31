@@ -33,7 +33,7 @@ func (mc *MatchController) HandlePing(c *gin.Context) {
 type FormGetMatchSchedule struct {
 	Teams   []string `json:"teams"`
 	Format  string   `json:"format"`
-	Results []int    `json:"results"`
+	Results []int    `json:"results"` //Add results
 }
 
 func (mc *MatchController) HandleGetMatchSchedule(c *gin.Context) {
@@ -154,7 +154,7 @@ func (mc *MatchController) HandleGetMatchSchedule(c *gin.Context) {
 
 		}
 
-		brackets, err := db.GetMatchesByTournament("4f3d9be9-226f-47f0-94f4-399c163fcd23")
+		brackets, err := db.GetMatchesByTournament("4f3d9be9-226f-47f0-94f4-399c163fcd23") //Get all matches
 		if err != nil {
 			c.JSON(
 				http.StatusBadRequest,

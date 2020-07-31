@@ -5,7 +5,6 @@
 package services
 
 import (
-	"errors"
 	"fmt"
 	"github.com/bitspawngg/tournament-bracket-manager/models"
 	"github.com/sirupsen/logrus"
@@ -23,16 +22,13 @@ func NewMatchService(log *logrus.Logger, db *models.DB) *MatchService {
 	}
 }
 
-func (ms *MatchService) GetDb() *models.DB {
+func (ms *MatchService) GetDb() *models.DB { //Add get method of ms.db
 	return ms.db
 
 }
 
 func GetMatchSchedule(teams []string, format string) ([]models.Match, error) {
-	// implement proper check for number of teams in the next line
-	if len(teams) == 3 {
-		return nil, errors.New("number of teams not a power of 2")
-	}
+	// Generate initial Schedule
 	var matches []models.Match
 	var nowRound int = 1
 	var i int
