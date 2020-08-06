@@ -77,3 +77,17 @@ func (db DB) InsertMatch(match Match) error {
 	}
 	return matches, nil
 }*/
+func (db DB) GetFormResult(team string) ([]int, error) {
+	matches := make([]Match, 0)
+	var err error
+	var results []int
+	db.DB.Where("TeamOne = ?", "A").Find(&matches)
+	for _, match := range matches {
+		if match.TeamOne == team && match.Result == 1 || match.TeamTwo == team || match.Result == 2 {
+			results = append(results, 0)
+		} else {
+			results = append(results, 1)
+		}
+	}
+	return results, err
+}

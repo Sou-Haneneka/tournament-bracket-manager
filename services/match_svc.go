@@ -54,7 +54,18 @@ func GetMatchSchedule(teams []string, format string) ([]models.Match, error) {
 			models.Match{TournamentID: "4f3d9be9-226f-47f0-94f4-399c163fcd23", Round: 2, Table: 1, TeamOne: "A", TeamTwo: "C", Status: "Pending", Result: 0},
 		}*/
 	} else if format == "CONSOLATION" {
-		return nil, fmt.Errorf("Unsupported tournament format [%s]", format)
+		for j = len(teams); j > 1; j /= 2 {
+			for i = 0; i < len(teams); i += 2 {
+				if nowRound == 1 {
+					matches = append(matches, models.Match{TournamentID: "4f3d9be9-226f-47f0-94f4-399c163fcd23", Round: nowRound, Table: i/2 + 1, TeamOne: teams[i], TeamTwo: teams[i+1], Status: "Ready", Result: 0})
+				} else {
+					matches = append(matches, models.Match{TournamentID: "4f3d9be9-226f-47f0-94f4-399c163fcd23", Round: nowRound, Table: i/2 + 1, TeamOne: "Unknown", TeamTwo: "Unknown", Status: "Pending", Result: 0})
+				}
+
+			}
+			nowRound++
+
+		}
 	} else {
 		return nil, fmt.Errorf("Unsupported tournament format [%s]", format)
 	}
