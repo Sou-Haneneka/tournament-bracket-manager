@@ -41,6 +41,7 @@ func (mc *MatchController) HandleGetMatchSchedule(c *gin.Context) {
 	form := FormGetMatchSchedule{}
 
 	if err := c.ShouldBindJSON(&form); err != nil {
+		mc.log.Info("Can not bind json")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -79,6 +80,7 @@ func (mc *MatchController) HandleGetMatchSchedule(c *gin.Context) {
 		brackets, err := services.GetMatchSchedule(form.Teams, form.Format)
 
 		if err != nil {
+			mc.log.Info("Get matches error")
 			c.JSON(
 				http.StatusInternalServerError,
 				gin.H{
@@ -297,6 +299,7 @@ func (mc *MatchController) HandleConsolationResults(c *gin.Context) {
 	var ThisMatch *models.Match
 	db := mc.ms.GetDb()
 	if err := c.ShouldBindJSON(&form); err != nil {
+		mc.log.Info("Can not bind json")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -308,6 +311,7 @@ func (mc *MatchController) HandleConsolationResults(c *gin.Context) {
 	}
 	brackets, err := db.GetMatchesByTournament("4f3d9be9-226f-47f0-94f4-399c163fcd23") //Get all matches
 	if err != nil {
+		mc.log.Info("Get matches error")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -337,6 +341,7 @@ func (mc *MatchController) HandleConsolationResults(c *gin.Context) {
 
 	ThisMatch, err = db.GetMatch(form.TournamentID, form.Round, form.Table)
 	if err != nil {
+		mc.log.Info("Get matches error")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -366,6 +371,7 @@ func (mc *MatchController) HandleConsolationResults(c *gin.Context) {
 	BehindIndex := StartIndex + HalfSize
 	PendingMatches, err := db.GetMatchesByStatus("Pending")
 	if err != nil {
+		mc.log.Info("Get matches error")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -401,6 +407,7 @@ func (mc *MatchController) HandleConsolationResults(c *gin.Context) {
 
 	PendingMatches, err = db.GetMatchesByStatus("Pending")
 	if err != nil {
+		mc.log.Info("Get matches error")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -442,6 +449,7 @@ func (mc *MatchController) HandleConsolationResults(c *gin.Context) {
 
 	PendingMatches, err = db.GetMatchesByStatus("Pending")
 	if err != nil {
+		mc.log.Info("Get matches error")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -460,6 +468,7 @@ func (mc *MatchController) HandleConsolationResults(c *gin.Context) {
 
 	brackets, err = db.GetMatchesByTournament("4f3d9be9-226f-47f0-94f4-399c163fcd23") //Get all matches
 	if err != nil {
+		mc.log.Info("Get matches error")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -488,6 +497,7 @@ func (mc *MatchController) HandleGetConsolationRank(c *gin.Context) {
 	form := CommandForm{}
 	db := mc.ms.GetDb()
 	if err := c.ShouldBindJSON(&form); err != nil {
+		mc.log.Info("Get matches error")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -498,6 +508,7 @@ func (mc *MatchController) HandleGetConsolationRank(c *gin.Context) {
 		return
 	}
 	if form.Cmd != "Get rank" {
+		mc.log.Info("Unmounted command")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -510,6 +521,7 @@ func (mc *MatchController) HandleGetConsolationRank(c *gin.Context) {
 	var teams []string
 	matches, err := db.GetMatchesByTournament("4f3d9be9-226f-47f0-94f4-399c163fcd23")
 	if err != nil {
+		mc.log.Info("Get matches error")
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
